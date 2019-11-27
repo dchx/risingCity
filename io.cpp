@@ -36,6 +36,7 @@ void readinput(std::string filename, std::vector<IOterm *> & actionlist){
 	}
 }
 void printbuilding(Building * building, std::ofstream & outfile){
+	/* print a building to outfile */
 	if (outfile.is_open()){
 		outfile << "(" << building->buildingNum << ","
 		                 << building->executed_time << ","
@@ -43,6 +44,7 @@ void printbuilding(Building * building, std::ofstream & outfile){
 	}
 }
 void printbuildings(std::vector<Building *> & buildings, std::ofstream & outfile){
+	/* print a vector of buildings to outfile */
 	if (outfile.is_open()){
 		for (size_t i = 0; i < buildings.size(); i++){
 			printbuilding(buildings.at(i), outfile);
@@ -52,12 +54,14 @@ void printbuildings(std::vector<Building *> & buildings, std::ofstream & outfile
 	}
 }
 void printcomplete(Building * building, int global_time, std::ofstream & outfile){
+	/* print a building completed at global_time to outfile */
 	if (outfile.is_open()){
 		outfile << "(" << building->buildingNum << ","
 		                 << global_time << ")" << std::endl;
 	}
 }
 void printtree(RedBlackNode * root, int edge){
+	/* print a red-black tree */
 	int tab = 10;
 	if (root == nullptr) return;
 	edge += tab;
@@ -68,6 +72,7 @@ void printtree(RedBlackNode * root, int edge){
 	printtree(root->left, edge);
 }
 void printheap(MinHeap * heap, int rootind, int edge){
+	/* print a min heap */
 	int tab = 10;
 	if (rootind < 0 || rootind >= heap->buildings.size()) return;
 	edge += tab;

@@ -8,14 +8,14 @@ int main(int argc, char* argv[]){
 	City * risingCity = new City();
 	readinput(argv[1], risingCity->actionlist);
 	while (1){
-		Building * workon = risingCity->selectbuilding();
+		Building * workon = risingCity->selectbuilding(); // select a building to work on
 		if (workon == nullptr){ // nothing to be work on
 			if (risingCity->actionlist.size() == 0) return 0;
 			risingCity->tackaction(global_time, risingCity->actionlist.at(0)->time, workon, outfile); // perform next I/O action and update global_time
 		}
 		else { // has selected something to work on
-			remaining_time = workon->total_time - workon->executed_time;
-			work_time = (remaining_time <= max_work_time)? remaining_time : max_work_time;
+			remaining_time = workon->total_time - workon->executed_time; // remaining time to work on this building
+			work_time = (remaining_time <= max_work_time)? remaining_time : max_work_time; // actual time to work on in this step
 			risingCity->tackaction(global_time, global_time + work_time, workon, outfile); // perform I/O actions and update global_time
 			if (work_time == remaining_time){ // building finish
 				printcomplete(workon, global_time, outfile);

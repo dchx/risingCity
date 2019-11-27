@@ -18,6 +18,7 @@ RedBlackNode * RedBlackNode::sibling(){
 	if (this == parent->left) return parent->right;
 	else return parent->left;
 }
+// null building and node
 Building * nullBuilding = new Building(0, 0);
 RedBlackNode * nullNode = new RedBlackNode(nullBuilding);
 
@@ -58,6 +59,7 @@ std::vector<Building *> RedBlackTree::getrange(int buildingNum1, int buildingNum
 
 // ---------- insert/delete utils ---------- //
 RedBlackNode * removeDegree1(RedBlackNode * toremove, RedBlackNode * toraise, RedBlackTree * tree){
+	/* remove toremove and put toraise to toremove's position */
 	RedBlackNode * v;
 	if (toremove->parent != nullptr){ // toremove is not root
 		if (toremove->parent->left == toremove){
@@ -140,6 +142,7 @@ void insertBinarySearchTree(RedBlackNode *& root, RedBlackNode * newnode){
 		insertBinarySearchTree(root->right, newnode);
 }
 void twored_rotation(RedBlackNode * p, RedBlackNode * pp, RedBlackNode * gp, RedBlackTree * tree){
+	/* do rotations for adjust_twored */
 	if (pp == gp->left && p == pp->left) LLb_rotation(pp, gp, tree);
 	if (pp == gp->right && p == pp->right) RRb_rotation(pp, gp, tree);
 	if (pp == gp->left && p == pp->right) LRb_rotation(p, pp, gp, tree);
@@ -171,6 +174,7 @@ void adjust_twored(RedBlackNode * p, RedBlackTree * tree){
 	}
 }
 void RedBlackTree::insert(Building * toinsert){
+	/* the main insert function */
 	RedBlackNode * newnode = new RedBlackNode(toinsert);
 	insertBinarySearchTree(root, newnode);
 	adjust_twored(newnode, this);
@@ -271,6 +275,7 @@ RedBlackNode * replace(RedBlackNode * toreplace){
 	}
 }
 void RedBlackTree::remove(Building * toremove){
+	/* the main remove function */
 	RedBlackNode * removenode = get(toremove->buildingNum);
 	RedBlackNode * toraise;
 	bool adjust = false; // whether need to continue adjusting

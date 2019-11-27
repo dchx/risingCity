@@ -10,21 +10,25 @@ Building::Building(int num, int time){
 
 // ---------- City ---------- //
 City::City(){
+	/* initialization */
 	actionlist.clear();
 	buildingNums = new RedBlackTree();
 	executedTimes = new MinHeap;
 }
 void City::insertbd(int buildingNum, int total_time){
+	/* insert a building with buildingNum and total_time to the city */
 	Building * toinsert = new Building(buildingNum, total_time);
 	buildingNums->insert(toinsert);
 	executedTimes->insert(toinsert);
 }
 void City::printbd(int buildingNum, std::ofstream & outfile){
+	/* print a building with buildingNum to outfile */
 	RedBlackNode * toprint = buildingNums->get(buildingNum);
 	printbuilding(toprint->building, outfile);
 	outfile << std::endl;
 }
 void City::printbds(int buildingNum1, int buildingNum2, std::ofstream & outfile){
+	/* print buildings within [buildingNum1, buildingNum2] to outfile */
 	std::vector<Building *> toprint = buildingNums->getrange(buildingNum1, buildingNum2);
 	printbuildings(toprint, outfile);
 }
@@ -60,6 +64,7 @@ Building * City::selectbuilding(){
 	return executedTimes->buildings.at(selected.at(0));
 }
 void City::take_one_action(IOterm * term, std::ofstream & outfile){
+	/* take one Print/Insert action as instructed in the IOterm */
 	if (term->action == Insert){
 		insertbd(term->params.at(0), term->params.at(1));
 	}

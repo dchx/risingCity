@@ -3,7 +3,7 @@
 #include <vector>
 #include <math.h>
 
-// buildings
+// ---------- buildings ---------- //
 struct Building{
 	// items
 	int buildingNum; // unique integer identifier for each building
@@ -14,7 +14,7 @@ struct Building{
 	Building(int buildingNum, int total_time); // initialize
 };
 
-// min heap
+// ---------- min heap ---------- //
 int heapleft(int);
 int heapright(int);
 int heapparent(int);
@@ -27,7 +27,7 @@ struct MinHeap{
 	void increasekey(Building *, int increaseval);
 };
 
-// red-black tree
+// ---------- red-black tree ---------- //
 enum colors {red, black};
 struct RedBlackNode{
 	// items
@@ -37,8 +37,8 @@ struct RedBlackNode{
 	RedBlackNode * right;
 	Building * building; // key is building->buildingNum
 	// functions
-	RedBlackNode * sibling();
-	RedBlackNode(Building *);
+	RedBlackNode * sibling(); // a node's parent's other child
+	RedBlackNode(Building *); // initialize
 };
 struct RedBlackTree{
 	/* used to store (buildingNum, executed_time, total_time) triplets ordered by buildingNum */
@@ -47,32 +47,32 @@ struct RedBlackTree{
 	// functions
 	void insert(Building *);
 	void remove(Building *);
-	RedBlackNode * get(int buildingNum);
-	std::vector<Building *> getrange(int buildingNum1, int buildingNum2);
-	RedBlackTree();
+	RedBlackNode * get(int buildingNum); // get the building with buildingNum
+	std::vector<Building *> getrange(int buildingNum1, int buildingNum2); // get buildings with buildingNum1 <= buildingNum <= buildingNum2
+	RedBlackTree(); // initialize
 };
 
-// I/O operations
+// ---------- I/O operations ---------- //
 enum actions {Insert, Print};
 struct IOterm{
 	int time; // global time
 	enum actions action; // Insert or Print
 	std::vector<int> params; // {buildingNum, total_time} for Insert; {buildingNum1(, buildingNum2)} for Print
 };
-void readinput(std::string filename, std::vector<IOterm *> & actionlist);
-void printbuilding(Building *, std::ofstream &);
-void printbuildings(std::vector<Building *> &, std::ofstream &);
-void printcomplete(Building *, int global_time, std::ofstream &);
+void readinput(std::string filename, std::vector<IOterm *> & actionlist); // read the input file
+void printbuilding(Building *, std::ofstream &); // print a building
+void printbuildings(std::vector<Building *> &, std::ofstream &); // print a list of buildings
+void printcomplete(Building *, int global_time, std::ofstream &); // print a completed building
 // for testing
 void printtree(RedBlackNode * root, int edge = 0); // print a red-black tree
 void printheap(MinHeap * heap, int rootind = 0, int edge = 0); // print a min heap
 
-// the city
+// ---------- the city ---------- //
 struct City{
 	// items
 	std::vector<IOterm *> actionlist; // the list of input actions
-	MinHeap * executedTimes;
-	RedBlackTree * buildingNums;
+	MinHeap * executedTimes; // buildings ordered by executed_time
+	RedBlackTree * buildingNums; // buildings ordered by buildingNum
 	// functions
 	void printbd(int buildingNum, std::ofstream &); // prints the triplet (buildingNum, executed_time, total_time)
 	void printbds(int buildingNum1, int buildingNum2, std::ofstream &); // prints all triplets (buildingNum, executed_time, total_time) for buildingNum in [buildingNum1, buildingNum2]
@@ -80,5 +80,5 @@ struct City{
 	Building * selectbuilding(); // select the building with the lowest executed_time to work on
 	void tackaction(int & global_time, int end_time, Building * workon, std::ofstream &); // perform actions on the actionlist with time in (start_time, end_time]
 	void take_one_action(IOterm *, std::ofstream &); // perform one action of IOterm
-	City();
+	City(); // initialize
 };
