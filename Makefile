@@ -1,17 +1,15 @@
-OBJ = lib/MinHeap.o lib/RedBlackTree.o lib/City.o lib/risingcity.o lib/io.o
-INCLUDE = -Iinclude
+OBJ = MinHeap.o RedBlackTree.o City.o risingcity.o io.o
 
 all: risingCity
 
-risingCity: lib $(OBJ)
+risingCity: $(OBJ)
 	g++ -o $@ $(OBJ)
 
-lib/%.o: src/%.cpp include/risingcity.hpp
-	g++ $(INCLUDE) -c $< -o $@
+%.o: %.cpp risingcity.hpp
+	g++ -c $< -o $@
 
 lib:
 	mkdir lib
 
 clean:
-	rm -r lib
-	rm risingCity
+	rm -f *.o risingCity
