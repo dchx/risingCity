@@ -8,8 +8,5 @@ risingCity: $(OBJ)
 %.o: %.cpp risingcity.hpp
 	g++ -c $< -o $@
 
-lib:
-	mkdir lib
-
 clean:
 	rm -f *.o risingCity
