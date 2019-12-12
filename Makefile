@@ -1,4 +1,4 @@
-OBJ = MinHeap.o RedBlackTree.o City.o risingcity.o io.o
+OBJ = MinHeap.o RedBlackTree.o io.o City.o risingcity.o
 
 all: risingCity
 
